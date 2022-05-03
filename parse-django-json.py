@@ -1,3 +1,13 @@
+# encoding: utf-8
+"""
+
+"""
+__author__ = 'Jack Leland'
+__date__ = '03 May 2022'
+__copyright__ = 'Copyright 2022 United Kingdom Research and Innovation'
+__license__ = 'BSD - see LICENSE file in top-level package directory'
+__contact__ = 'jack.leland@stfc.ac.uk'
+
 import pathlib as pth
 import json
 import os
