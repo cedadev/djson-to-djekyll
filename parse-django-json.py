@@ -8,6 +8,7 @@ __copyright__ = 'Copyright 2022 United Kingdom Research and Innovation'
 __license__ = 'BSD - see LICENSE file in top-level package directory'
 __contact__ = 'jack.leland@stfc.ac.uk'
 
+from dataclasses import replace
 import pathlib as pth
 import json
 import os
@@ -86,14 +87,16 @@ def make_hierrarchy(content, nodes=None, print_fl=False):
     
     return forest
 
-def content_replace(bulk_content):
-    replacements = {
-        '"/eustace/static/': '"{{ site.baseurl }}/assets/',
-        '"https://www.eustaceproject.eu/' : '"{{ site.baseurl }}/',
-        '"{{ site.baseurl }}/eustace/static/': '"{{ site.baseurl }}/assets/',
-        '"{{ site.baseurl }}/static/': '"{{ site.baseurl }}/assets/',
-        'href="/': 'href="{{ site.baseurl }}/'
-    }
+default_replacements = {
+    '"/hrcm/static/': '"{{ site.baseurl }}/assets/',
+    '"https://hrcm.ceda.ac.uk/hrcm/' : '"{{ site.baseurl }}/',
+    '"{{ site.baseurl }}/hrcm/static/': '"{{ site.baseurl }}/assets/',
+    '"{{ site.baseurl }}/static/': '"{{ site.baseurl }}/assets/',
+    'href="/': 'href="{{ site.baseurl }}/'
+}
+def content_replace(bulk_content: str, replacements: dict[str, str] = None) -> str:
+    if not replacements:
+        replacements = default_replacements
     for k, v in replacements.items():
         bulk_content = bulk_content.replace(k, v)
     return bulk_content
@@ -198,8 +201,8 @@ def parse_django_json(json_filename, project_dir, print_fl, generate_pages_fl,
             if fields["model"] != "blog":
                 continue
             dt = datetime.fromisoformat(fields["publish_date"].replace("Z", ""))
-            create_markdown(f"_posts/{dt.year}-{dt.month}-{dt.day}-{fields['slug']}.md", fields, layout=blog_layout, 
-                            is_blog=True)
+            create_markdown(f"_posts/{dt.year}/{dt.year}-{dt.month}-{dt.day}-{fields['slug']}.md", fields, layout=blog_layout, 
+                            is_blog=True, skip_banner=True)
 
 if __name__ == "__main__":
     parse_django_json()
