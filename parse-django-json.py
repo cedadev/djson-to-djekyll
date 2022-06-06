@@ -88,9 +88,9 @@ def make_hierrarchy(content, nodes=None, print_fl=False):
     return forest
 
 default_replacements = {
-    '"/hrcm/static/': '"{{ site.baseurl }}/assets/',
-    '"https://hrcm.ceda.ac.uk/hrcm/' : '"{{ site.baseurl }}/',
-    '"{{ site.baseurl }}/hrcm/static/': '"{{ site.baseurl }}/assets/',
+    '"/primavera/static/': '"{{ site.baseurl }}/assets/',
+    '"https://www.primavera-h2020.eu/primavera/' : '"{{ site.baseurl }}/',
+    '"{{ site.baseurl }}/primavera/static/': '"{{ site.baseurl }}/assets/',
     '"{{ site.baseurl }}/static/': '"{{ site.baseurl }}/assets/',
     'href="/': 'href="{{ site.baseurl }}/'
 }
